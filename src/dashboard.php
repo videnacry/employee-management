@@ -17,12 +17,23 @@
                     echo '<th>'.$index.'</th>';
                 }
                 echo '<th><button>+</button></th></tr>';
-                for($index = 0; 10>$index; $index++){   
-                    echo '<tr>';     
-                    foreach($employeesObject[$index] as $data){
-                        echo '<td>'.$data.'</td>';
+                if(count($employeesObject)>10){
+                    printRow($employeesObject, 10);                    
+                }
+                else{
+                    printRow($employeesObject);
+                }
+                function printRow($haystack, $count = 0){
+                    if($count == 0){
+                        $count = count($haystack);
                     }
-                    echo '<th><button>-</button></th></tr>';
+                    for($index = 0; $count>$index; $index++){   
+                        echo '<tr>';     
+                        foreach($haystack[$index] as $data){
+                            echo '<td>'.$data.'</td>';
+                        }
+                        echo '<th><button>-</button></th></tr>';
+                    }
                 }
             ?>
         </table>
