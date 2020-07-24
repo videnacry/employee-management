@@ -5,6 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta charset="utf-8"/>
         <title>Dashboard</title>
+        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <link href="../node_modules/bootstrap/dist/css/bootstrap.css"></link>
+        <script src="../node_modules/bootstrap/js/dist/index.js" defer></script>
     </head>
     <body>
         <table>
