@@ -7,8 +7,10 @@ function addEmployee(){
         inputs += '<td><input class="form-control" type="text" data-column="' + columns[index].dataset.column  + 
         '" placeholder="' + columns[index].textContent + '" /></td>'
     }
-    inputs += '<td><button class="btn btn-block text-warning"><i class="fas fa-window-close"></i></button></td>'
+    inputs += '<td><button class="btn btn-block text-warning" onclick="cancelNew()"><i class="fas fa-window-close"></i></button></td>'
     inputs += '</tr>'
-    console.log(inputs)
     rows.prepend(inputs)
+}
+function cancelNew(){
+    event.currentTarget.parentElement.parentElement.remove()
 }
