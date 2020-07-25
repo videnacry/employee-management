@@ -7,14 +7,15 @@
         <title>Dashboard</title>
         <script src="../node_modules/jquery/dist/jquery.js"></script>
         <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css"></link>
-        <script src="../node_modules/bootstrap/js/dist/index.js" defer></script>
         <script src="https://kit.fontawesome.com/de217cab6a.js" crossorigin="anonymous"></script>
+        <script src="../node_modules/bootstrap/js/dist/index.js" defer></script>
+        <script src="../js/dashboard.js" defer></script>
     </head>
     <body>
         <div class="container">
     
                 <?php 
-                    echo '<table class="table table-bordered table-dark table-hover table-responsive rounded shadow">';
+                    echo '<table id="employee-table" class="table table-bordered table-dark table-hover table-responsive rounded shadow">';
                     session_start();
                     $employeesObject = json_decode(file_get_contents('../resources/employees.json'));
                     echo '<tr class="thead-light">';
