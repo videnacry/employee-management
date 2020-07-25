@@ -6,39 +6,42 @@
         <meta charset="utf-8"/>
         <title>Dashboard</title>
         <script src="../node_modules/jquery/dist/jquery.js"></script>
-        <link href="../node_modules/bootstrap/dist/css/bootstrap.css"></link>
+        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css"></link>
         <script src="../node_modules/bootstrap/js/dist/index.js" defer></script>
+        <script src="https://kit.fontawesome.com/de217cab6a.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <table>
-
-            <?php 
-                session_start();
-                $employeesObject = json_decode(file_get_contents('../resources/employees.json'));
-                echo '<tr>';
-                foreach($employeesObject[0] as $index=>$data){
-                    echo '<th>'.$index.'</th>';
-                }
-                echo '<th><button>+</button></th></tr>';
-                if(count($employeesObject)>10){
-                    printRow($employeesObject, 10);                    
-                }
-                else{
-                    printRow($employeesObject);
-                }
-                function printRow($haystack, $count = 0){
-                    if($count == 0){
-                        $count = count($haystack);
+        <div class="container">
+            <table class="table table-bordered table-dark table-hover table-responsive rounded shadow">
+    
+                <?php 
+                    session_start();
+                    $employeesObject = json_decode(file_get_contents('../resources/employees.json'));
+                    echo '<tr class="thead-light">';
+                    foreach($employeesObject[0] as $index=>$data){
+                        echo '<th class="user-select-all">'.$index.'</th>';
                     }
-                    for($index = 0; $count>$index; $index++){   
-                        echo '<tr>';     
-                        foreach($haystack[$index] as $data){
-                            echo '<td>'.$data.'</td>';
+                    echo '<th><button class="btn btn-block text-success"><i class="fas fa-plus h5"></i></button></th></tr>';
+                    if(count($employeesObject)>10){
+                        printRow($employeesObject, 10);                    
+                    }
+                    else{
+                        printRow($employeesObject);
+                    }
+                    function printRow($haystack, $count = 0){
+                        if($count == 0){
+                            $count = count($haystack);
                         }
-                        echo '<th><button>-</button></th></tr>';
+                        for($index = 0; $count>$index; $index++){   
+                            echo '<tr class="table-sm">';     
+                            foreach($haystack[$index] as $data){
+                                echo '<td class="user-select-all">'.$data.'</td>';
+                            }
+                            echo '<td><button class="btn-block btn text-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
+                        }
                     }
-                }
-            ?>
-        </table>
+                ?>
+            </table>
+        </div>
     </body>
 </html>
