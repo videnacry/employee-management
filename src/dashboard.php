@@ -12,9 +12,9 @@
     </head>
     <body>
         <div class="container">
-            <table class="table table-bordered table-dark table-hover table-responsive rounded shadow">
     
                 <?php 
+                    echo '<table class="table table-bordered table-dark table-hover table-responsive rounded shadow">';
                     session_start();
                     $employeesObject = json_decode(file_get_contents('../resources/employees.json'));
                     echo '<tr class="thead-light">';
@@ -22,8 +22,10 @@
                         echo '<th class="user-select-all">'.$index.'</th>';
                     }
                     echo '<th><button class="btn btn-block text-success"><i class="fas fa-plus h5"></i></button></th></tr>';
-                    if(count($employeesObject)>10){
-                        printRow($employeesObject, 10);                    
+                    define("pages",count($employeesObject));
+                    if(pages>10){
+                        printRow($employeesObject, 10);    
+                        printPagination(pages/10);                
                     }
                     else{
                         printRow($employeesObject);
@@ -39,9 +41,18 @@
                             }
                             echo '<td><button class="btn-block btn text-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
                         }
+                        echo '</table>';
+                    }
+                    function printPagination($quantity){
+                        $quantity++;
+                        echo '<nav aria-label="table pages navigation"><ul class="pagination shadow"><li class="page-item">
+                            <a class="page-link bg-light" href="#">Previous</a></li>';
+                        for($index = 1; $quantity > $index; $index++){
+                            echo '<li class="page-item"><a class="page-link bg-light" href="#">' . $index . '</a></li>';
+                        }
+                        echo '<li class="page-item"><a class="page-link bg-light" href="#">Next</a></li></ul></nav>';
                     }
                 ?>
-            </table>
         </div>
     </body>
 </html>
