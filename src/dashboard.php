@@ -21,7 +21,7 @@
                     foreach($employeesObject[0] as $index=>$data){
                         echo '<th class="user-select-all">'.$index.'</th>';
                     }
-                    echo '<th><button class="btn btn-block text-success"><i class="fas fa-plus h5"></i></button></th></tr>';
+                    echo '<th><button id="add-employee" class="btn btn-block text-success"><i class="fas fa-plus h5"></i></button></th></tr>';
                     define("pages",count($employeesObject));
                     if(pages>10){
                         printRow($employeesObject, 10);    
@@ -39,13 +39,13 @@
                             foreach($haystack[$index] as $data){
                                 echo '<td class="user-select-all">'.$data.'</td>';
                             }
-                            echo '<td><button class="btn-block btn text-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
+                            echo '<td><button id="delete-employee" class="btn-block btn text-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
                         }
                         echo '</table>';
                     }
                     function printPagination($quantity){
                         $quantity++;
-                        echo '<nav aria-label="table pages navigation"><ul class="pagination shadow"><li class="page-item">
+                        echo '<nav aria-label="table pages navigation"><ul id="pagination-items" class="pagination shadow"><li class="page-item">
                             <a class="page-link bg-light" href="#">Previous</a></li>';
                         for($index = 1; $quantity > $index; $index++){
                             echo '<li class="page-item"><a class="page-link bg-light" href="#">' . $index . '</a></li>';
