@@ -2,8 +2,9 @@
 <?php
 session_start();
 if(isset($_SESSION['logged'])){
-    if((time() - $_SESSION['logTime']) > 600){
-        unset($_SESSION);
+    // if((time() - $_SESSION['logTime']) > 600){
+    if((time() - $_SESSION['logTime']) > 30){
+        // unset($_SESSION);
         session_destroy();
     }else{
         $url = 'src/dashboard.php';
