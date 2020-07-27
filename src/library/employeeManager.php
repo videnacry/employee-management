@@ -50,21 +50,21 @@ function printTable(){
                 <tbody id="employees-rows">';
             define("pages",count($employeesObject));
             if(pages>10){
-                printRow($employeesObject, 10);    
-                printPagination(pages/10);                
+                printRow($employeesObject, 10);
+                printPagination(pages/10);
             }
             else{
                 printRow($employeesObject);
             }
             echo '<div class="d-flex justify-content-end"><button id="reload" class="btn btn-outline-warning font-weight-bold shadow px-4 mx-2">reload</button>
                 <button id="save" class="btn btn-outline-success font-weight-bold shadow px-4 mx-2">Save</button></div>';
-            
+
 }function printRow($haystack, $count = 0){
     if($count == 0){
         $count = count($haystack);
     }
-    for($index = 0; $count>$index; $index++){   
-        echo '<tr>';     
+    for($index = 0; $count>$index; $index++){
+        echo '<tr>';
         $i = 0;
         foreach($haystack[$index] as $data){
             if($i === 0){
