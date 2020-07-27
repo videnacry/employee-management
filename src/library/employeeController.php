@@ -1,11 +1,12 @@
 <?php
 require 'employeeManager.php';
-switch($_POST['query']){
-    case 'getEmployees':
-        echo getEmployees();
-    break;
-    case 'printTable':
-        echo printTable();
-    break;
+if(isset($_POST['query'])){
+    switch($_POST['query']){
+        case 'getEmployees':
+            echo getEmployees();
+        break;
+        case 'printTable':
+            echo printTable();
+        break;
+    }
 }
-echo 'why?';

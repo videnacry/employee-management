@@ -35,7 +35,7 @@ function getEmployees(){
 
 function printTable(){
     echo '<table class="table table-bordered table-dark table-hover table-responsive rounded shadow">';
-            $employeesObject = json_decode(file_get_contents('../resources/employees.json'));
+            $employeesObject = json_decode(file_get_contents('../../resources/employees.json'));
             echo '<thead id="employees-columns"><tr class="thead-light">';
             $i = 0;
             foreach($employeesObject[0] as $index=>$data){
@@ -58,33 +58,33 @@ function printTable(){
             }
             echo '<div class="d-flex justify-content-end"><button id="reload" class="btn btn-outline-warning font-weight-bold shadow px-4 mx-2">reload</button>
                 <button id="save" class="btn btn-outline-success font-weight-bold shadow px-4 mx-2">Save</button></div>';
-            function printRow($haystack, $count = 0){
-                if($count == 0){
-                    $count = count($haystack);
-                }
-                for($index = 0; $count>$index; $index++){   
-                    echo '<tr>';     
-                    $i = 0;
-                    foreach($haystack[$index] as $data){
-                        if($i === 0){
-                            $i++;
-                            continue;
-                        }
-                        echo '<td class="user-select-all">'.$data.'</td>';
-                    }
-                    echo '<td><button data-id=' . $haystack[$index]->id . ' class="btn-block btn text-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
-                }
-                echo '</tbody></table>';
+            
+}function printRow($haystack, $count = 0){
+    if($count == 0){
+        $count = count($haystack);
+    }
+    for($index = 0; $count>$index; $index++){   
+        echo '<tr>';     
+        $i = 0;
+        foreach($haystack[$index] as $data){
+            if($i === 0){
+                $i++;
+                continue;
             }
-            function printPagination($quantity){
-                $quantity++;
-                echo '<nav aria-label="table pages navigation"><ul id="pagination-items" class="pagination shadow"><li class="page-item">
-                    <a class="page-link bg-light" href="#">Previous</a></li>';
-                for($index = 1; $quantity > $index; $index++){
-                    echo '<li class="page-item"><a class="page-link bg-light" href="#">' . $index . '</a></li>';
-                }
-                echo '<li class="page-item"><a class="page-link bg-light" href="#">Next</a></li></ul></nav>';
-            }
+            echo '<td class="user-select-all">'.$data.'</td>';
+        }
+        echo '<td><button data-id=' . $haystack[$index]->id . ' class="btn-block btn text-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
+    }
+    echo '</tbody></table>';
+}
+function printPagination($quantity){
+    $quantity++;
+    echo '<nav aria-label="table pages navigation"><ul id="pagination-items" class="pagination shadow"><li class="page-item">
+        <a class="page-link bg-light" href="#">Previous</a></li>';
+    for($index = 1; $quantity > $index; $index++){
+        echo '<li class="page-item"><a class="page-link bg-light" href="#">' . $index . '</a></li>';
+    }
+    echo '<li class="page-item"><a class="page-link bg-light" href="#">Next</a></li></ul></nav>';
 }
 
 function removeAvatar($id)

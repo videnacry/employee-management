@@ -16,39 +16,40 @@
 
 <body>
 
-<?php
-    session_start();
+    <?php
+        session_start();
 
-    if(isset($_POST['logout'])){
-        // unset($_SESSION['logged']);
-        // unset($_SESSION['userId']);
-        // unset($_SESSION['username']);
-        // unset($_SESSION['email']);
-        // unset($_SESSION['logTime']);
-        session_destroy();
+        if(isset($_POST['logout'])){
+            // unset($_SESSION['logged']);
+            // unset($_SESSION['userId']);
+            // unset($_SESSION['username']);
+            // unset($_SESSION['email']);
+            // unset($_SESSION['logTime']);
+            session_destroy();
 
-        $url = '../index.php';
-        header('Location: ' . $url);
-        die();
-    }
-
-?>
-    <?php echo '<p>Welcome '. $_SESSION['username'] . '!</p>'; ?>
-    <?php if(isset($_SESSION['username'])){
-        $postData = ['query' => 'printTable'];  
-         
-        $curlHandler = curl_init('library\employeeController.php');  
-        curl_setopt($curlHandler, CURLOPT_POST, $postData);  
-        curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, true);
-        $apiResponse = curl_exec($curlHandler);  
-        curl_close($curlHandler); 
-        var_dump($apiResponse);
+            $url = '../index.php';
+            header('Location: ' . $url);
+            die();
         }
+
     ?>
     <form action="dashboard.php" method="post">
         <input type="submit" name="logout" value="Logout" />
     </form>
     <div class="container">
+
+        <?php if(isset($_SESSION['username'])){
+            echo '<p>Welcome '. $_SESSION['username'] . '!</p>';
+            $postData = ['query' => 'printTable'];  
+             
+            $curlHandler = curl_init('http://localhost/employee-management/src/library/employeeController.php');  
+            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $postData);  
+            curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, true);
+            $apiResponse = curl_exec($curlHandler);  
+            curl_close($curlHandler); 
+            echo $apiResponse;
+            }
+        ?>
 
     </div>
 </body>
