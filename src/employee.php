@@ -30,7 +30,7 @@ if(isset($_SESSION['logged'])){
     <div class="main d-flex flex-column justify-content-between">
         <?php include('../assets/header.html') ?>
         <div class='main__content d-flex justify-content-center align-items-center'>
-            <form id="employeeForm">
+            <form id="employeeForm" class="my-5">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="name">Name</label>
@@ -87,7 +87,7 @@ if(isset($_SESSION['logged'])){
                     </div>
                 </div>
                 <div class="mt-3 d-flex justify-content-end">
-                    <button class="btn btn-outline-dark">Submit</button>
+                    <button class="btn btn-outline-dark" id='submitForm'>Submit</button>
                     <button class="btn btn-outline-danger mx-2">Return</button>
                 </div>
             </form>
@@ -97,6 +97,7 @@ if(isset($_SESSION['logged'])){
     <script src="../node_modules/jquery/dist/jquery.js"></script>
     <script src="https://kit.fontawesome.com/de217cab6a.js" crossorigin="anonymous"></script>
     <script src="../node_modules/bootstrap/js/dist/index.js" defer></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="../js/employee.js"></script>
 </body>
 </html>

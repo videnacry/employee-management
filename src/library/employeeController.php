@@ -10,3 +10,7 @@ if(isset($_POST['query'])){
         break;
     }
 }
+
+if(isset($_GET['id'])){
+    echo getEmployee($_GET['id']);
+}
