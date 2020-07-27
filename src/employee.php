@@ -30,7 +30,7 @@ if(isset($_SESSION['logged'])){
     <div class="main d-flex flex-column justify-content-between">
         <?php include('../assets/header.html') ?>
         <div class='main__content d-flex justify-content-center align-items-center'>
-            <form id="employeeForm" class="my-5">
+            <form id="employeeForm" class="my-5" name="employeeInfo">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="name">Name</label>

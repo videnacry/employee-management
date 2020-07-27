@@ -18,9 +18,30 @@ function deleteEmployee(string $id)
 }
 
 
-function updateEmployee(array $updateEmployee)
-{
-// TODO implement it
+function updateEmployee($id, $nEmployee){
+    // return (json_encode($nEmployee));
+    $employees = json_decode(file_get_contents('../../resources/employees.json'));
+    foreach ($employees as $key => $employee) {
+        if($employee->id == $id){
+            $employee->name = $nEmployee['name'];
+            $employee->lastName = $nEmployee['surname'];
+            $employee->age = $nEmployee['age'];
+            $employee->city = $nEmployee['city'];
+            $employee->email = $nEmployee['email'];
+            $employee->gender = $nEmployee['gender'];
+            $employee->phoneNumber = $nEmployee['phone'];
+            $employee->postalCode = $nEmployee['po'];
+            $employee->state = $nEmployee['state'];
+            $employee->streetAddress = $nEmployee['address'];
+
+            $file = '../../resources/employees.json';
+            $fp = fopen($file, 'w');
+            fwrite($fp, json_encode($employees));
+            fclose($fp);
+
+            return json_encode($employee);
+        }
+    }
 }
 
 
