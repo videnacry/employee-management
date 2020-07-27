@@ -42,3 +42,8 @@ function saveEmployee(employeeCells, newEmployee = false){
         }
     })
 }
+
+$('table td').contextmenu(function(){
+    $('body').append('<ul style="position:absolute;left:'+(event.clientX-0.5)+'px;top:'+event.clientY+
+    'px;width:411px" class="list-group"><li class="list-group-item bg-light">my option</li><li class="list-group-item bg-light">new Option</li></ul>'
+    )})

@@ -15,7 +15,10 @@
 </head>
 
 <body>
-
+    <ul class="list-group">
+        <li class="list-group-item bg-light">my option</li>
+        <li class="list-group-item bg-light">new Option</li>
+    </ul>
     <?php
         session_start();
 
