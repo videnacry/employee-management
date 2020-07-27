@@ -3,7 +3,21 @@
     padding:0;
 }
 
+.main{
+    min-height: 100vh;
+}
+
 .header{
     width: 100vw;
     border: 1px solid red;
+}
+
+.main__content{
+    flex-grow: 1;
+}
+
+form#employeeForm{
+    border: 1px solid red;
+    width: 50%;
+    min-width: 300px;
 }
