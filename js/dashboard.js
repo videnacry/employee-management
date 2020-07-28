@@ -3,7 +3,6 @@ const contextmenu = document.getElementById('contextmenu')
 $(contextmenu).toggle()
 
 document.getElementById('add-employee').addEventListener('click',addEmployee)
-// document.getElementById('add-employee').addEventListener('click',addEmployee)
 let newRows = []
 let updateRows = []
 const rowsSection = $('#employees-rows') 
@@ -24,7 +23,7 @@ function cancelNew(){
     newRows.pop()
     event.currentTarget.parentElement.parentElement.remove()
 }
-// document.getElementById("save").addEventListener("click",selectChanges)
+document.getElementById("save").addEventListener("click",selectChanges)
 function selectChanges(){
     const rows = rowsSection[0].children
     for(let index in newRows){
