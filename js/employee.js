@@ -9,6 +9,7 @@ const state = document.querySelector('#stateInp');
 const age = document.querySelector('#ageInp');
 const po = document.querySelector('#poInp');
 const phone = document.querySelector('#phoneInp');
+const alertMsg = document.querySelector('#formErrMsg');
 
 printEmployee(window.location.search);
 
@@ -16,9 +17,8 @@ function printEmployee(param){
     axios({
         method: 'GET',
         url: 'library/employeeController.php' + param,
-        // responseType: 'stream'
     }).then(response=>{
-        console.log(response.data);
+        // console.log(response.data);
         name.value = response.data.name;
         surname.value = response.data.lastName;
         email.value = response.data.email;
@@ -32,30 +32,128 @@ function printEmployee(param){
     });
 }
 
+document.querySelector('#returnBtn').addEventListener('click', e=>{
+    e.preventDefault();
+    window.location.href =  '/src/dashboard.php';
+});
 document.querySelector('#submitForm').addEventListener('click', e=>{
     e.preventDefault();
 
-    let employee = new FormData(form);
-    employee.name = name.value;
-    employee.surname = surname.value;
-    employee.email = email.value;
-    employee.gender = gender.value;
-    employee.city = city.value;
-    employee.phone = phone.value;
-    employee.po = po.value;
-    employee.state = state.value;
-    employee.address = address.value;
-    employee.age = age.value;
+    if(checkInputs()){
 
-    axios({
-        method: 'post',
-        url: 'library/employeeController.php' + window.location.search,
-        data: {
-            employee
-        }
-        // responseType: 'stream'
-    }).then(response=>{
-        console.log(response.data)
-        console.log(employee)
-    });
+        let employee = new FormData(form);
+        employee.name = name.value;
+        employee.surname = surname.value;
+        employee.email = email.value;
+        employee.gender = gender.value;
+        employee.city = city.value;
+        employee.phone = phone.value;
+        employee.po = po.value;
+        employee.state = state.value;
+        employee.address = address.value;
+        employee.age = age.value;
+
+        axios({
+            method: 'post',
+            url: 'library/employeeController.php' + window.location.search,
+            data: {
+                employee
+            }
+        }).then(response=>{
+            if(response.status === 200){
+                alertMsg.textContent = 'All changes applied! Redirecting to main page...'
+                alertMsg.classList.remove('alert-danger');
+                alertMsg.classList.add('alert-success');
+                alertMsg.classList.replace('d-none', 'd-flex');
+                setTimeout(() => {
+                    window.location.href =  '/src/dashboard.php'
+                    alertMsg.classList.replace('d-flex', 'd-none');
+                    alertMsg.classList.remove('alert-success');
+                }, 3000);
+            }else{
+                console.log('Oops, error ' + response.status + '.')
+                alertMsg.textContent = 'Oops, error ' + response.status + '. Please, try again later.'
+                alertMsg.classList.add('alert-danger');
+                alertMsg.classList.replace('d-none', 'd-flex');
+            }
+        });
+    }else{
+        alertMsg.textContent = 'Please, correct the highlighted errors.'
+        alertMsg.classList.add('alert-danger');
+        alertMsg.classList.replace('d-none', 'd-flex');
+    };
 });
+
+function checkInputs(){
+    let checkName = false;
+    let checkSurname = false;
+    let checkAge = false;
+    let checkCity = false;
+    let checkEmail = false;
+    // let checkGender = false;
+    let checkPhone = false;
+    let checkPo = false;
+    let checkState = false;
+    let checkAddress = false;
+
+    if (name.value.match(/^[ A-zÀ-ÿ-]+$/gm)){
+        checkName = true;
+        name.classList.remove('form-error');
+    }else{
+        name.classList.add('form-error');
+    }
+    if (surname.value.match(/^[ A-zÀ-ÿ-]+$/gm)){
+        checkSurname = true;
+        surname.classList.remove('form-error');
+    }else{
+        surname.classList.add('form-error');
+    }
+    if (age.value.match(/^[0-9]+$/gm)){
+        checkAge = true;
+        age.classList.remove('form-error');
+    }else{
+        age.classList.add('form-error');
+    }
+    if (city.value.match(/^[ A-zÀ-ÿ-]+$/gm)){
+        checkCity = true;
+        city.classList.remove('form-error');
+    }else{
+        city.classList.add('form-error');
+    }
+    if (email.value.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/gm)){
+        checkEmail = true;
+        email.classList.remove('form-error');
+    }else{
+        email.classList.add('form-error');
+    }
+    if (address.value.match(/^\s*\S+(?:\s+\S+)/gm)){
+        checkAddress = true;
+        address.classList.remove('form-error');
+    }else{
+        address.classList.add('form-error');
+    }
+    if (phone.value.match(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/gm)){
+        checkPhone = true;
+        phone.classList.remove('form-error');
+    }else{
+        phone.classList.add('form-error');
+    }
+    if (po.value.match(/^[0-9]+$/gm)){
+        checkPo = true;
+        po.classList.remove('form-error');
+    }else{
+        po.classList.add('form-error');
+    }
+    if (state.value.match(/^[ A-zÀ-ÿ-]+$/gm)){
+        checkState = true;
+        state.classList.remove('form-error');
+    }else{
+        state.classList.add('form-error');
+    }
+
+    if(checkName && checkAddress && checkSurname && checkAge && checkCity && checkEmail && checkPhone && checkPo && checkState){
+        return true;
+    }else{
+        return false;
+    }
+}

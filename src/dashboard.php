@@ -7,7 +7,11 @@
     <meta charset="utf-8" />
     <title>Dashboard</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+<<<<<<< HEAD
+    </link>
+=======
     <link rel="stylesheet" href="../css/main.css"/>
+>>>>>>> develop
 </head>
 
 <body>
