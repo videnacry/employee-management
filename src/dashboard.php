@@ -12,19 +12,22 @@
 
 <body>
     <ul id="contextmenu" class="list-group list-group-flush contextmenu rounded">
-        <a id="update-data" href="#" class="list-group-item list-group-item-primary list-group-item-action border-bottom-0">
+        <a id="create-data" href="#" class="list-group-item list-group-item-light list-group-item-action border-bottom-0">
+            <i class="fas fa-user-plus"></i><small>&nbsp;&nbsp;&nbsp;Create employee</small>
+        </a>
+        <a id="update-data" href="#" class="list-group-item list-group-item-light list-group-item-action border-bottom-0">
             <i class="fas fa-user-edit"></i><small>&nbsp;&nbsp;&nbsp;Update data</small>
         </a>
-        <a href="#" class="list-group-item list-group-item-primary list-group-item-action border-bottom-0">
+        <a href="#" class="list-group-item list-group-item-light list-group-item-action border-bottom-0">
             <i class="fas fa-user-times"></i><small>&nbsp;&nbsp;&nbsp;Delete employee</small>
         </a>
-        <a href="#" class="list-group-item list-group-item-primary list-group-item-action">
+        <a href="#" class="list-group-item list-group-item-light list-group-item-action">
             <i class="fas fa-edit"></i><small>&nbsp;&nbsp;&nbsp;Update row</small>
         </a>
-        <a href="#" class="list-group-item list-group-item-primary list-group-item-action border-bottom-0">
+        <a href="#" class="list-group-item list-group-item-light list-group-item-action border-bottom-0">
             <i class="fas fa-redo-alt"></i><small>&nbsp;&nbsp;&nbsp;Reload</small>
         </a>
-        <a href="#" class="list-group-item list-group-item-primary list-group-item-action border-bottom-0">
+        <a href="#" class="list-group-item list-group-item-light list-group-item-action border-bottom-0">
             <i class="fas fa-sign-out-alt"></i><small>&nbsp;&nbsp;&nbsp;Logout</small>
         </a>
     </ul>

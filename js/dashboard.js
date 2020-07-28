@@ -121,5 +121,8 @@ $('body').click(function(){
 $('#update-data').click(function(){
     location.href='employee.php?id=' + employeeId
 })
+$('#create-data').click(function(){
+    location.href='employee.php?id=new'
+})
 
 
