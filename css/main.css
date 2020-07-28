@@ -27,3 +27,13 @@ form#employeeForm{
     width: 50%;
     min-width: 300px;
 }
+
+.errorMsg{
+    height: 50px;
+    width: 50%;
+    min-width: 300px;
+}
+
+.form-error{
+    border-color: red;
+}

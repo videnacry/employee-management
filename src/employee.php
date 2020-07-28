@@ -29,7 +29,10 @@ if(isset($_SESSION['logged'])){
 <body>
     <div class="main d-flex flex-column justify-content-between">
         <?php include('../assets/header.html') ?>
-        <div class='main__content d-flex justify-content-center align-items-center'>
+        <div class='main__content d-flex justify-content-center align-items-center flex-column'>
+            <div id="formErrMsg" class="d-none errorMsg mb-4 align-items-center justify-content-center alert">
+                <span>Please, correct the highlighted errors.</span>
+            </div>
             <form id="employeeForm" class="my-5" name="employeeInfo">
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -88,7 +91,7 @@ if(isset($_SESSION['logged'])){
                 </div>
                 <div class="mt-3 d-flex justify-content-end">
                     <button class="btn btn-outline-dark" id='submitForm'>Submit</button>
-                    <button class="btn btn-outline-danger mx-2">Return</button>
+                    <button class="btn btn-outline-danger mx-2" id="returnBtn">Return</button>
                 </div>
             </form>
         </div>
