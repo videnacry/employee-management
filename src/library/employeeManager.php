@@ -107,7 +107,10 @@ function printTable(){
         }
         echo '<td><button data-id=' . $haystack[$index]->id . ' class="btn-block btn text-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
     }
-    echo '</tbody></table>';
+    echo '</tbody></table>
+          <script>
+                let employeesObject = ' . json_encode($haystack) . '
+          </script>';
 }
 function printPagination($quantity){
     $quantity++;

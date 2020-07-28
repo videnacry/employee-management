@@ -49,6 +49,33 @@ function saveEmployee(employeeCells, query){
     })
 }
 
+//------------------------------------reload table---------------------------------------//
+
+function reloadTable(){
+
+    let rowsQuantity = employeesObject.length
+    if(rowsQuantity > 10){
+        rowsQuantity = 10
+    }
+    let rowsHTML
+    rowsSection.html("")
+    for(index = 0; rowsQuantity>index; index++){
+            rowsHTML += '<tr data-id="'+employeesObject[index]+'">'
+            console.log(rowsHTML)
+        let row = 0
+        for(let i in employeesObject[index]){
+            if(row === 0){
+                row++
+                continue
+            }
+            rowsHTML += '<td class="user-select-all">'+employeesObject[index][i]+'</td>'
+        }
+        rowsHTML += '<td><button data-id=' + employeesObject[index].id + ' class="btn-block btn text-danger"><i class="fas fa-trash-alt"></i></button></td></tr>'
+    }
+    rowsHTML += '</tbody></table>'
+    rowsSection.append(rowsHTML)
+}
+
 //------------------------------------contextmenu----------------------------------------//
 let employeeId
 addRowsEvent()
