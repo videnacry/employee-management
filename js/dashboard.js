@@ -24,25 +24,26 @@ function cancelNew(){
     newRows.pop()
     event.currentTarget.parentElement.parentElement.remove()
 }
-// document.getElementById("save").addEventListener("click",selectChanges)
+document.getElementById("save").addEventListener("click",selectChanges)
 function selectChanges(){
     const rows = rowsSection[0].children
     for(let index in newRows){
-        saveEmployee(rowsSection[0].children[index].children, true)
+        saveEmployee(rowsSection[0].children[index].children, 'addEmployee')
     }
 }
-function saveEmployee(employeeCells, newEmployee = false){
+function saveEmployee(employeeCells, query){
     let employeeData = {}
-    employeeData['new'] = newEmployee
+    employeeData['query'] = query
     for(let index = 0; employeeCells.length > index+1; index++){
         let employeeInput = employeeCells[index].children[0]
-        employeeData[employeeInput.placeholder] = employeeInput.value
+        employeeData[employeeInput.dataset.column] = employeeInput.value
     }
     $.ajax({
         method:'POST',
         url:"library/employeeController.php",
         data:employeeData,
         success:function(response){
+            console.log(response)
             console.log(employeeData)
         }
     })
@@ -50,16 +51,19 @@ function saveEmployee(employeeCells, newEmployee = false){
 
 //------------------------------------contextmenu----------------------------------------//
 let employeeId
-$('table tr').contextmenu(function(){
-    event.preventDefault()
-    employeeId = event.currentTarget.dataset.id
-    $(contextmenu).css({
-        display:'none',
-        top:event.clientY + 'px',
-        left:event.clientX + 'px'
+addRowsEvent()
+function addRowsEvent(){
+    $('table tr[data-id]').contextmenu(function(){
+        event.preventDefault()
+        employeeId = event.currentTarget.dataset.id
+        $(contextmenu).css({
+            display:'none',
+            top:event.clientY + 30 + 'px',
+            left:event.clientX + 'px'
+        })
+        $(contextmenu).fadeIn(200)
     })
-    $(contextmenu).fadeIn(200)
-})
+}
 $('body').click(function(){
     contextmenu.style.display = 'none'
 })

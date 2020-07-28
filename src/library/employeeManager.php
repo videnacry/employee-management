@@ -9,8 +9,17 @@
 function addEmployee(array $newEmployee)
 {
 // TODO implement it
+    $employeesObject = json_decode(file_get_contents('../../resources/employees.json'));
+    $employeeData = new stdClass();
+    $employeeData->id = count($employeesObject) + 1;
+    foreach($newEmployee as $index => $value){
+        $employeeData -> {$index} = $value;
+    }
+    array_push($employeesObject,$employeeData);
+    $employeesJSON = json_encode($employeesObject);
+    file_put_contents('../../resources/employees.json', $employeesJSON);
+    return $employeesJSON;
 }
-
 
 function deleteEmployee(string $id)
 {
