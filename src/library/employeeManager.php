@@ -17,7 +17,7 @@ function addEmployee(array $newEmployee)
     }
     array_push($employeesObject,$employeeData);
     $employeesJSON = json_encode($employeesObject);
-    file_put_contents('../../resources/employees.json', $employeesJSON);
+    //file_put_contents('../../resources/employees.json', $employeesJSON);
     return $employeesJSON;
 }
 
@@ -115,11 +115,11 @@ function printTable(){
 function printPagination($quantity){
     $quantity++;
     echo '<nav aria-label="table pages navigation"><ul id="pagination-items" class="pagination shadow"><li class="page-item">
-        <a class="page-link bg-light" href="#">Previous</a></li>';
+        <a id="previous" class="page-link bg-light" href="#" >Previous</a></li>';
     for($index = 1; $quantity > $index; $index++){
-        echo '<li class="page-item"><a class="page-link bg-light" href="#">' . $index . '</a></li>';
+        echo '<li class="page-item"><a class="page-link bg-light" href="#" data-number="'.$index.'">' . $index . '</a></li>';
     }
-    echo '<li class="page-item"><a class="page-link bg-light" href="#">Next</a></li></ul></nav>';
+    echo '<li id="next" class="page-item"><a class="page-link bg-light" href="#">Next</a></li></ul></nav>';
 }
 
 function removeAvatar($id)

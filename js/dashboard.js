@@ -43,37 +43,61 @@ function saveEmployee(employeeCells, query){
         url:"library/employeeController.php",
         data:employeeData,
         success:function(response){
-            console.log(response)
-            console.log(employeeData)
+            employeesObject = JSON.parse(response)
         }
     })
 }
 
 //------------------------------------reload table---------------------------------------//
+function reloadTable(page=0){
 
-function reloadTable(){
-
-    let rowsQuantity = employeesObject.length
+    let pageRows = employeesObject.slice(10*(page-1))
+    let rowsQuantity = pageRows.length
     if(rowsQuantity > 10){
         rowsQuantity = 10
     }
     let rowsHTML
     rowsSection.html("")
+            console.log(pageRows)
     for(index = 0; rowsQuantity>index; index++){
-            rowsHTML += '<tr data-id="'+employeesObject[index]+'">'
-            console.log(rowsHTML)
+            rowsHTML += '<tr data-id="'+pageRows[index]+'">'
         let row = 0
-        for(let i in employeesObject[index]){
+        for(let i in pageRows[index]){
             if(row === 0){
                 row++
                 continue
             }
-            rowsHTML += '<td class="user-select-all">'+employeesObject[index][i]+'</td>'
+            rowsHTML += '<td class="user-select-all">'+pageRows[index][i]+'</td>'
         }
-        rowsHTML += '<td><button data-id=' + employeesObject[index].id + ' class="btn-block btn text-danger"><i class="fas fa-trash-alt"></i></button></td></tr>'
+        rowsHTML += '<td><button data-id=' + pageRows[index].id + ' class="btn-block btn text-danger"><i class="fas fa-trash-alt"></i></button></td></tr>'
     }
     rowsHTML += '</tbody></table>'
     rowsSection.append(rowsHTML)
+    addRowsEvent()
+}
+
+//----------------------------------pagination event--------------------------------------//
+let page = 1
+if(employeesObject.length > 10){
+    $('#pagination-items a[data-number]').click(function(){
+        event.preventDefault()
+        console.log("a")
+        reloadTable($(this).attr('data-number'))
+    })
+    $('#previous').click(function(){
+        event.preventDefault()
+        if(page > 1){
+            page--
+            reloadTable(page)
+        }
+    })
+    $('#next').click(function(){
+        event.preventDefault()
+        if(page < employeesObject.length / 10){
+            page++
+            reloadTable(page)
+        }
+    })
 }
 
 //------------------------------------contextmenu----------------------------------------//
@@ -85,7 +109,7 @@ function addRowsEvent(){
         employeeId = event.currentTarget.dataset.id
         $(contextmenu).css({
             display:'none',
-            top:event.clientY + 30 + 'px',
+            top:event.clientY + 'px',
             left:event.clientX + 'px'
         })
         $(contextmenu).fadeIn(200)
