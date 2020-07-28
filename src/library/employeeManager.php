@@ -17,7 +17,7 @@ function addEmployee(array $newEmployee)
     }
     array_push($employeesObject,$employeeData);
     $employeesJSON = json_encode($employeesObject);
-    //file_put_contents('../../resources/employees.json', $employeesJSON);
+    file_put_contents('../../resources/employees.json', $employeesJSON);
     return $employeesJSON;
 }
 
