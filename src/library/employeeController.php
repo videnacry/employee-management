@@ -10,3 +10,11 @@ if(isset($_POST['query'])){
         break;
     }
 }
+
+if(isset($_GET['id'])){
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') echo getEmployee($_GET['id']);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $tmp = json_decode(file_get_contents("php://input"), true);
+        echo updateEmployee($_GET['id'], $tmp['employee']);
+    }
+}

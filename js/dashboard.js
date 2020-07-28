@@ -2,8 +2,8 @@
 const contextmenu = document.getElementById('contextmenu')
 $(contextmenu).toggle()
 
-
 document.getElementById('add-employee').addEventListener('click',addEmployee)
+// document.getElementById('add-employee').addEventListener('click',addEmployee)
 let newRows = []
 let updateRows = []
 const rowsSection = $('#employees-rows') 
@@ -24,7 +24,7 @@ function cancelNew(){
     newRows.pop()
     event.currentTarget.parentElement.parentElement.remove()
 }
-document.getElementById("save").addEventListener("click",selectChanges)
+// document.getElementById("save").addEventListener("click",selectChanges)
 function selectChanges(){
     const rows = rowsSection[0].children
     for(let index in newRows){
@@ -48,14 +48,23 @@ function saveEmployee(employeeCells, newEmployee = false){
     })
 }
 
-$('table td').contextmenu(function(){
+//------------------------------------contextmenu----------------------------------------//
+let employeeId
+$('table tr').contextmenu(function(){
     event.preventDefault()
-    console.log(event)
+    employeeId = event.currentTarget.dataset.id
     $(contextmenu).css({
-        display:"none",
-        top:event.clientY + "px",
-        left:event.clientX + "px"
+        display:'none',
+        top:event.clientY + 'px',
+        left:event.clientX + 'px'
     })
     $(contextmenu).fadeIn(200)
 })
+$('body').click(function(){
+    contextmenu.style.display = 'none'
+})
+$('#update-data').click(function(){
+    location.href='employee.php?id=' + employeeId
+})
+
 

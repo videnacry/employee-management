@@ -6,18 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
     <title>Dashboard</title>
-    <script src="../node_modules/jquery/dist/jquery.js"></script>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
-    </link>
-    <script src="https://kit.fontawesome.com/de217cab6a.js" crossorigin="anonymous"></script>
-    <script src="../node_modules/bootstrap/js/dist/index.js" defer></script>
     <link rel="stylesheet" href="../css/main.css"/>
-    <script src="../js/dashboard.js" defer></script>
 </head>
 
 <body>
     <ul id="contextmenu" class="list-group list-group-flush contextmenu rounded">
-        <a href="#" class="list-group-item list-group-item-primary list-group-item-action border-bottom-0">
+        <a id="update-data" href="#" class="list-group-item list-group-item-primary list-group-item-action border-bottom-0">
             <i class="fas fa-user-edit"></i><small>&nbsp;&nbsp;&nbsp;Update data</small>
         </a>
         <a href="#" class="list-group-item list-group-item-primary list-group-item-action border-bottom-0">
@@ -57,18 +52,24 @@
 
         <?php if(isset($_SESSION['username'])){
             echo '<p>Welcome '. $_SESSION['username'] . '!</p>';
-            $postData = ['query' => 'printTable'];  
-             
-            $curlHandler = curl_init('http://localhost/employee-management/src/library/employeeController.php');  
-            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $postData);  
+            $postData = ['query' => 'printTable'];
+
+            //$curlHandler = curl_init('employee-management.localhost/src/library/employeeController.php');
+            $curlHandler = curl_init('http://localhost/employee-management/src/library/employeeController.php');
+            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $postData);
             curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, true);
-            $apiResponse = curl_exec($curlHandler);  
-            curl_close($curlHandler); 
+            $apiResponse = curl_exec($curlHandler);
+            curl_close($curlHandler);
             echo $apiResponse;
             }
         ?>
 
     </div>
+
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="https://kit.fontawesome.com/de217cab6a.js" crossorigin="anonymous"></script>
+    <script src="../node_modules/bootstrap/js/dist/index.js"></script>
+    <script src="../js/dashboard.js"></script>
 </body>
 
 </html>

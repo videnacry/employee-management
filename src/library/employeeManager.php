@@ -18,15 +18,38 @@ function deleteEmployee(string $id)
 }
 
 
-function updateEmployee(array $updateEmployee)
-{
-// TODO implement it
+function updateEmployee($id, $nEmployee){
+    // return (json_encode($nEmployee));
+    $employees = json_decode(file_get_contents('../../resources/employees.json'));
+    foreach ($employees as $key => $employee) {
+        if($employee->id == $id){
+            $employee->name = $nEmployee['name'];
+            $employee->lastName = $nEmployee['surname'];
+            $employee->age = $nEmployee['age'];
+            $employee->city = $nEmployee['city'];
+            $employee->email = $nEmployee['email'];
+            $employee->gender = $nEmployee['gender'];
+            $employee->phoneNumber = $nEmployee['phone'];
+            $employee->postalCode = $nEmployee['po'];
+            $employee->state = $nEmployee['state'];
+            $employee->streetAddress = $nEmployee['address'];
+
+            $file = '../../resources/employees.json';
+            $fp = fopen($file, 'w');
+            fwrite($fp, json_encode($employees));
+            fclose($fp);
+
+            return json_encode($employee);
+        }
+    }
 }
 
 
-function getEmployee(string $id)
-{
-// TODO implement it
+function getEmployee(string $id){
+    $employees = json_decode(file_get_contents('../../resources/employees.json'));
+    foreach ($employees as $key => $employee) {
+        if($employee->id == $id) return json_encode($employee);
+    }
 }
 
 function getEmployees(){
@@ -50,21 +73,21 @@ function printTable(){
                 <tbody id="employees-rows">';
             define("pages",count($employeesObject));
             if(pages>10){
-                printRow($employeesObject, 10);    
-                printPagination(pages/10);                
+                printRow($employeesObject, 10);
+                printPagination(pages/10);
             }
             else{
                 printRow($employeesObject);
             }
             echo '<div class="d-flex justify-content-end"><button id="reload" class="btn btn-outline-warning font-weight-bold shadow px-4 mx-2">reload</button>
                 <button id="save" class="btn btn-outline-success font-weight-bold shadow px-4 mx-2">Save</button></div>';
-            
+
 }function printRow($haystack, $count = 0){
     if($count == 0){
         $count = count($haystack);
     }
-    for($index = 0; $count>$index; $index++){   
-        echo '<tr>';     
+    for($index = 0; $count>$index; $index++){
+        echo '<tr data-id="' . $haystack[$index]->id . '">';
         $i = 0;
         foreach($haystack[$index] as $data){
             if($i === 0){
