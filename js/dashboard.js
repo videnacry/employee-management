@@ -1,3 +1,8 @@
+//------------------------------Contextmenu--------------------------------------//
+const contextmenu = document.getElementById('contextmenu')
+$(contextmenu).toggle()
+
+
 document.getElementById('add-employee').addEventListener('click',addEmployee)
 let newRows = []
 let updateRows = []
@@ -44,6 +49,13 @@ function saveEmployee(employeeCells, newEmployee = false){
 }
 
 $('table td').contextmenu(function(){
-    $('body').append('<ul style="position:absolute;left:'+(event.clientX-0.5)+'px;top:'+event.clientY+
-    'px;width:411px" class="list-group"><li class="list-group-item bg-light">my option</li><li class="list-group-item bg-light">new Option</li></ul>'
-    )})
+    event.preventDefault()
+    console.log(event)
+    $(contextmenu).css({
+        display:"none",
+        top:event.clientY + "px",
+        left:event.clientX + "px"
+    })
+    $(contextmenu).fadeIn(200)
+})
+

@@ -11,13 +11,27 @@
     </link>
     <script src="https://kit.fontawesome.com/de217cab6a.js" crossorigin="anonymous"></script>
     <script src="../node_modules/bootstrap/js/dist/index.js" defer></script>
+    <link rel="stylesheet" href="../css/main.css"/>
     <script src="../js/dashboard.js" defer></script>
 </head>
 
 <body>
-    <ul class="list-group">
-        <li class="list-group-item bg-light">my option</li>
-        <li class="list-group-item bg-light">new Option</li>
+    <ul id="contextmenu" class="list-group list-group-flush contextmenu rounded">
+        <a href="#" class="list-group-item list-group-item-primary list-group-item-action border-bottom-0">
+            <i class="fas fa-user-edit"></i><small>&nbsp;&nbsp;&nbsp;Update data</small>
+        </a>
+        <a href="#" class="list-group-item list-group-item-primary list-group-item-action border-bottom-0">
+            <i class="fas fa-user-times"></i><small>&nbsp;&nbsp;&nbsp;Delete employee</small>
+        </a>
+        <a href="#" class="list-group-item list-group-item-primary list-group-item-action">
+            <i class="fas fa-edit"></i><small>&nbsp;&nbsp;&nbsp;Update row</small>
+        </a>
+        <a href="#" class="list-group-item list-group-item-primary list-group-item-action border-bottom-0">
+            <i class="fas fa-redo-alt"></i><small>&nbsp;&nbsp;&nbsp;Reload</small>
+        </a>
+        <a href="#" class="list-group-item list-group-item-primary list-group-item-action border-bottom-0">
+            <i class="fas fa-sign-out-alt"></i><small>&nbsp;&nbsp;&nbsp;Logout</small>
+        </a>
     </ul>
     <?php
         session_start();
