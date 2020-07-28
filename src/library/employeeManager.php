@@ -9,8 +9,17 @@
 function addEmployee(array $newEmployee)
 {
 // TODO implement it
+    $employeesObject = json_decode(file_get_contents('../../resources/employees.json'));
+    $employeeData = new stdClass();
+    $employeeData->id = count($employeesObject) + 1;
+    foreach($newEmployee as $index => $value){
+        $employeeData -> {$index} = $value;
+    }
+    array_push($employeesObject,$employeeData);
+    $employeesJSON = json_encode($employeesObject);
+    file_put_contents('../../resources/employees.json', $employeesJSON);
+    return $employeesJSON;
 }
-
 
 function deleteEmployee(string $id)
 {
@@ -87,7 +96,7 @@ function printTable(){
         $count = count($haystack);
     }
     for($index = 0; $count>$index; $index++){
-        echo '<tr>';
+        echo '<tr data-id="' . $haystack[$index]->id . '">';
         $i = 0;
         foreach($haystack[$index] as $data){
             if($i === 0){
@@ -98,7 +107,10 @@ function printTable(){
         }
         echo '<td><button data-id=' . $haystack[$index]->id . ' class="btn-block btn text-danger"><i class="fas fa-trash-alt"></i></button></td></tr>';
     }
-    echo '</tbody></table>';
+    echo '</tbody></table>
+          <script>
+                let employeesObject = ' . json_encode($haystack) . '
+          </script>';
 }
 function printPagination($quantity){
     $quantity++;

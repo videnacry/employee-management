@@ -8,6 +8,13 @@ if(isset($_POST['query'])){
         case 'printTable':
             echo printTable();
         break;
+        case 'addEmployee':
+            unset($_POST['query']);
+            echo addEmployee($_POST);
+        break;
+        case 'deleteEmployee':
+            echo deleteEmployee($_POST['id']);
+        break;
     }
 }
 
