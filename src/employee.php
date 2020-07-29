@@ -1,4 +1,6 @@
-<?php include('library/sessionHelper.php'); ?>
+<?php include('library/sessionHelper.php');
+
+header("Access-Control-Allow-Origin: *"); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +17,11 @@
         <div class='main__content d-flex justify-content-center align-items-center flex-column'>
             <div id="formErrMsg" class="d-none errorMsg mb-4 align-items-center justify-content-center alert">
                 <span>Please, correct the highlighted errors.</span>
+            </div>
+            <div id="profilePicCont" class="profile__img d-flex justify-content-center align-items-center">
+                <img src="" alt="profile picture" id="profileImg" class="d-none">
+            </div>
+            <div id="profilePicSelect" class="profile__img--selector d-none flex-wrap justify-content-sm-between justify-content-center mt-3">
             </div>
             <form id="employeeForm" class="my-5" name="employeeInfo">
                 <div class="form-row">
@@ -38,7 +45,7 @@
                             <option value="select" disabled selected>Select</option>
                             <option value="man">Man</option>
                             <option value="woman">Woman</option>
-                            <option value="undefined">Undefined</option>
+                            <!-- <option value="undefined">Undefined</option> -->
                         </select>
                     </div>
                 </div>

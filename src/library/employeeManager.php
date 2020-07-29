@@ -57,6 +57,7 @@ function deleteEmployee(string $id)
 
 function updateEmployee($id, $nEmployee){
     // return (json_encode($nEmployee));
+    //API KEY -> 4B25747F-51664BE8-97A405EA-4437BFA2
     $employees = json_decode(file_get_contents('../../resources/employees.json'));
 
     $newEmployee = new stdClass();
