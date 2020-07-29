@@ -181,30 +181,22 @@ async function printProfilePics() {
     let genderVal = (gender.value === 'man') ? 'male' : 'female';
 
     if (gender.value && age.value) {
-        var config = {
+
+        axios({
             method: 'get',
-            url: 'https://uifaces.co/api',
-            headers: { 
-                'X-API-KEY': '4B25747F-51664BE8-97A405EA-4437BFA2'
+            // url: `https://uifaces.co/api?limit=${limit}&gender[]=${genderVal}`,
+            url: `https://uifaces.co/api`,
+            headers:{
+                'X-API-KEY' : '4B25747F-51664BE8-97A405EA-4437BFA2',
+                'Accept': 'application/json',
+                'Cache-Control': 'no-cache',
+                // 'Acces-Control-Allow-Origin':'*'
             },
-          };
-          
-        const request = await axios(config);
-
-        console.log(request, 'request');
-
-        // axios({
-        //     method: 'get',
-        //     // url: `https://uifaces.co/api?limit=${limit}&gender[]=${genderVal}`,
-        //     url: `https://uifaces.co/api`,
-        //     headers:{
-        //         'X-API-KEY' : '4B25747F-51664BE8-97A405EA-4437BFA2',
-        //         'Accept': 'application/json',
-        //         'Cache-Control': 'no-cache',
-        //     },
-        // }).then(response=>{
-        //     console.log(response)
-        // })
+        }).then(response=>{
+            response.json();
+        }).then(data=>{
+            console.log(data)
+        })
         // fetch('https://uifaces.co/api', {
         //     method: 'GET',
         //     headers: {
