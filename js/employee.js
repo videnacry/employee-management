@@ -14,22 +14,26 @@ const alertMsg = document.querySelector('#formErrMsg');
 printEmployee(window.location.search);
 
 function printEmployee(param){
-    axios({
-        method: 'GET',
-        url: 'library/employeeController.php' + param,
-    }).then(response=>{
-        // console.log(response.data);
-        name.value = response.data.name;
-        surname.value = response.data.lastName;
-        email.value = response.data.email;
-        gender.value = response.data.gender;
-        city.value = response.data.city;
-        phone.value = response.data.phoneNumber;
-        po.value = response.data.postalCode;
-        state.value = response.data.state;
-        address.value = response.data.streetAddress;
-        age.value = response.data.age;
-    });
+    if(param != '?id=new'){
+        axios({
+            method: 'GET',
+            url: 'library/employeeController.php' + param,
+        }).then(response=>{
+            // console.log(response.data);
+            name.value = response.data.name;
+            surname.value = response.data.lastName;
+            email.value = response.data.email;
+            gender.value = response.data.gender;
+            city.value = response.data.city;
+            phone.value = response.data.phoneNumber;
+            po.value = response.data.postalCode;
+            state.value = response.data.state;
+            address.value = response.data.streetAddress;
+            age.value = response.data.age;
+        });
+    }else{
+        form.reset();
+    }
 }
 
 document.querySelector('#returnBtn').addEventListener('click', e=>{

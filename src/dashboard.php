@@ -7,11 +7,7 @@
     <meta charset="utf-8" />
     <title>Dashboard</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
-<<<<<<< HEAD
-    </link>
-=======
     <link rel="stylesheet" href="../css/main.css"/>
->>>>>>> develop
 </head>
 
 <body>
@@ -58,8 +54,8 @@
             echo '<p>Welcome '. $_SESSION['username'] . '!</p>';
             $postData = ['query' => 'printTable'];
 
-            //$curlHandler = curl_init('employee-management.localhost/src/library/employeeController.php');
-            $curlHandler = curl_init('http://localhost/employee-management/src/library/employeeController.php');
+            $curlHandler = curl_init('http://employee-management.localhost/src/library/employeeController.php');
+            // $curlHandler = curl_init('http://localhost/employee-management/src/library/employeeController.php');
             curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $postData);
             curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, true);
             $apiResponse = curl_exec($curlHandler);
