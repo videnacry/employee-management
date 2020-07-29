@@ -11,6 +11,9 @@ const po = document.querySelector('#poInp');
 const phone = document.querySelector('#phoneInp');
 const alertMsg = document.querySelector('#formErrMsg');
 
+document.querySelector('#dashboardTitle').className = 'innactive';
+document.querySelector('#employeeTitle').className = 'activated';
+
 printEmployee(window.location.search);
 
 function printEmployee(param){

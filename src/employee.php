@@ -1,22 +1,4 @@
-<?php
-session_start();
-if(isset($_SESSION['logged'])){
-    if((time() - $_SESSION['logTime']) > 600000){
-    // if((time() - $_SESSION['logTime']) > 30){
-        // unset($_SESSION);
-        session_destroy();
-        $url = '../index.php';
-        header('Location: ' . $url);
-        exit();
-    }
-
-}else{
-    $url = '../index.php';
-    header('Location: ' . $url);
-    exit();
-}
-
-?>
+<?php include('library/sessionHelper.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +6,8 @@ if(isset($_SESSION['logged'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../css/main.css">
-    <title>Document</title>
+    <link rel="shortcut icon" href="../resources/img/logo.png">
+    <title>Employee Edit</title>
 </head>
 <body>
     <div class="main d-flex flex-column justify-content-between">
