@@ -190,7 +190,6 @@ async function printProfilePics() {
                 'X-API-KEY' : '4B25747F-51664BE8-97A405EA-4437BFA2',
                 'Accept': 'application/json',
                 'Cache-Control': 'no-cache',
-                // 'Acces-Control-Allow-Origin':'*'
             },
         }).then(response=>{
             response.json();
