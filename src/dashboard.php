@@ -58,7 +58,7 @@
             $postData = ['query' => 'printTable'];
 
             //$curlHandler = curl_init('employee-management.localhost/src/library/employeeController.php');
-            $curlHandler = curl_init('http://localhost/employee-management/src/library/employeeController.php');
+            $curlHandler = curl_init((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http").'://'.$_SERVER['HTTP_HOST'].'/employee-management/src/library/employeeController.php');
             curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $postData);
             curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, true);
             $apiResponse = curl_exec($curlHandler);
