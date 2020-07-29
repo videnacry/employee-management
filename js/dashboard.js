@@ -26,28 +26,34 @@ function cancelNew(){
 document.getElementById("save").addEventListener("click",selectChanges)
 function selectChanges(){
     const rows = rowsSection[0].children
-    for(let index in newRows){
-        saveEmployee(rowsSection[0].children[index].children, 'addEmployee')
-    }
-}
-function saveEmployee(employeeCells, query){
+    let newEmployees = []
     let employeeData = {}
-    employeeData['query'] = query
-    for(let index = 0; employeeCells.length > index+1; index++){
-        let employeeInput = employeeCells[index].children[0]
-        employeeData[employeeInput.dataset.column] = employeeInput.value
+    for(let index in newRows){
+        for(let i = 0; rows[index].children.length > i+1; i++){
+            let employeeInput = rows[index].children[i].children[0]
+            employeeData[employeeInput.dataset.column] = employeeInput.value
+        }
+        newEmployees.push(Object.assign({},employeeData))
     }
+    saveEmployee(newEmployees,'addEmployees')
+}
+function saveEmployee(employeesData, query){
+    let queryData = {}
+    queryData['query'] = query
+    queryData['employees'] = employeesData
     $.ajax({
         method:'POST',
         url:"library/employeeController.php",
-        data:employeeData,
+        data:queryData,
         success:function(response){
             employeesObject = JSON.parse(response)
+            reloadTable(Math.ceil(employeesObject.length/10))
         }
     })
 }
 
 //------------------------------------reload table---------------------------------------//
+document.getElementById('reload').onclick = reloadTable
 function reloadTable(page=0){
 
     let pageRows = employeesObject.slice(10*(page-1))
@@ -57,7 +63,6 @@ function reloadTable(page=0){
     }
     let rowsHTML
     rowsSection.html("")
-            console.log(pageRows)
     for(index = 0; rowsQuantity>index; index++){
             rowsHTML += '<tr data-id="'+pageRows[index]+'">'
         let row = 0
@@ -73,30 +78,48 @@ function reloadTable(page=0){
     rowsHTML += '</tbody></table>'
     rowsSection.append(rowsHTML)
     addRowsEvent()
+    printPagination(employeesObject.length/10)
 }
 
-//----------------------------------pagination event--------------------------------------//
+//-------------------------------------reload pagination----------------------------------//
 let page = 1
-if(employeesObject.length > 10){
-    $('#pagination-items a[data-number]').click(function(){
-        event.preventDefault()
-        console.log("a")
-        reloadTable($(this).attr('data-number'))
-    })
-    $('#previous').click(function(){
-        event.preventDefault()
-        if(page > 1){
-            page--
-            reloadTable(page)
+function printPagination($quantity){
+    
+    if(document.getElementById('pagination-items')){
+        $(document.getElementById('pagination-items').parentElement).remove()
+    }
+    if($quantity>1){
+        $quantity++;
+        pagination = '<nav aria-label="table pages navigation"><ul id="pagination-items" class="pagination shadow"><li class="page-item">'+
+            '<a id="previous" class="page-link bg-light" href="#" >Previous</a></li>';
+        for($index = 1; $quantity > $index; $index++){
+            pagination += '<li class="page-item"><a class="page-link bg-light" href="#" data-number="'+$index+'">' + $index + '</a></li>';
         }
-    })
-    $('#next').click(function(){
-        event.preventDefault()
-        if(page < employeesObject.length / 10){
-            page++
-            reloadTable(page)
+        pagination += '<li id="next" class="page-item"><a class="page-link bg-light" href="#">Next</a></li></ul></nav>';
+        $(document.getElementById('reload').parentElement).before(pagination)
+        
+        //----------------------------------pagination event--------------------------------------//
+        if(employeesObject.length > 10){
+            $('#pagination-items a[data-number]').click(function(){
+                event.preventDefault()
+                reloadTable($(this).attr('data-number'))
+            })
+            $('#previous').click(function(){
+                event.preventDefault()
+                if(page > 1){
+                    page--
+                    reloadTable(page)
+                }
+            })
+            $('#next').click(function(){
+                event.preventDefault()
+                if(page < employeesObject.length / 10){
+                    page++
+                    reloadTable(page)
+                }
+            })
         }
-    })
+    }
 }
 
 //------------------------------------contextmenu----------------------------------------//
@@ -119,6 +142,9 @@ $('body').click(function(){
 })
 $('#update-data').click(function(){
     location.href='employee.php?id=' + employeeId
+})
+$('#create-data').click(function(){
+    location.href='employee.php?id=new'
 })
 
 
