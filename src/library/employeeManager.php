@@ -11,7 +11,7 @@ function addEmployee(array $newEmployee)
 // TODO implement it
     $employeesObject = json_decode(file_get_contents('../../resources/employees.json'));
     $employeeData = new stdClass();
-    $employeeData->id = count($employeesObject) + 1;
+    $employeeData->id = $employeesObject[count($employeesObject)-1]->id + 1;
     foreach($newEmployee as $index => $value){
         $employeeData -> {$index} = $value;
     }
@@ -24,7 +24,7 @@ function addEmployee(array $newEmployee)
 function addEmployees(array $newEmployees){
     
     $employeesObject = json_decode(file_get_contents('../../resources/employees.json'));
-    $count = count($employeesObject);
+    $count = $employeesObject[count($employeesObject)-1]->id;
     foreach($newEmployees as $newEmployee){
         $employeeData = new stdClass();
         $count++;
@@ -49,7 +49,7 @@ function deleteEmployee(string $id)
         break;
         }
     }
-    $employeesJSON = json_encode($employees);
+    $employeesJSON = json_encode(array_values($employees));
     file_put_contents('../../resources/employees.json',$employeesJSON);
     return $employeesJSON;
 }

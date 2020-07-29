@@ -23,6 +23,8 @@ function cancelNew(){
     newRows.pop()
     event.currentTarget.parentElement.parentElement.remove()
 }
+
+//--------------------------------save employee------------------------------------------//
 document.getElementById("save").addEventListener("click",selectChanges)
 function selectChanges(){
     const rows = rowsSection[0].children
@@ -37,6 +39,7 @@ function selectChanges(){
     }
     saveEmployee(newEmployees,'addEmployees')
 }
+
 function saveEmployee(employeesData, query){
     let queryData = {}
     queryData['query'] = query
@@ -48,6 +51,23 @@ function saveEmployee(employeesData, query){
         success:function(response){
             employeesObject = JSON.parse(response)
             reloadTable(Math.ceil(employeesObject.length/10))
+        }
+    })
+}
+
+//-----------------------------------delete employee-------------------------------------//
+deleteButtons()
+function deleteButtons(){
+    $('#employees-rows td .btn-block.btn.text-danger').click(deleteEmployee)
+}
+function deleteEmployee(id=false){
+    id = (id)?id:$(this).attr('data-id')
+    $.ajax({
+        url:"library/employeeController.php?id="+id,
+        method:"delete",
+        success:function(response){
+            employeesObject = JSON.parse(response)
+            reloadTable()
         }
     })
 }
@@ -64,7 +84,7 @@ function reloadTable(page=0){
     let rowsHTML
     rowsSection.html("")
     for(index = 0; rowsQuantity>index; index++){
-            rowsHTML += '<tr data-id="'+pageRows[index]+'">'
+            rowsHTML += '<tr data-id="'+pageRows[index].id+'">'
         let row = 0
         for(let i in pageRows[index]){
             if(row === 0){
@@ -77,8 +97,11 @@ function reloadTable(page=0){
     }
     rowsHTML += '</tbody></table>'
     rowsSection.append(rowsHTML)
-    addRowsEvent()
-    printPagination(employeesObject.length/10)
+    if(employeesObject.length>0){
+        deleteButtons()
+        addRowsEvent()
+        printPagination(employeesObject.length/10)
+    }
 }
 
 //-------------------------------------reload pagination----------------------------------//
@@ -145,6 +168,9 @@ $('#update-data').click(function(){
 })
 $('#create-data').click(function(){
     location.href='employee.php?id=new'
+})
+$('#delete-data').click(function(){
+    deleteEmployee(employeeId)
 })
 
 
