@@ -21,9 +21,37 @@ function addEmployee(array $newEmployee)
     return $employeesJSON;
 }
 
+function addEmployees(array $newEmployees){
+    
+    $employeesObject = json_decode(file_get_contents('../../resources/employees.json'));
+    $count = count($employeesObject);
+    foreach($newEmployees as $newEmployee){
+        $employeeData = new stdClass();
+        $count++;
+        $employeeData->id = $count;
+        foreach($newEmployee as $index => $value){
+            $employeeData -> {$index} = $value;
+        }
+        array_push($employeesObject,$employeeData);        
+    }
+    $employeesJSON = json_encode($employeesObject);
+    file_put_contents('../../resources/employees.json', $employeesJSON);
+    return $employeesJSON;
+}
+
 function deleteEmployee(string $id)
 {
 // TODO implement it
+    $employees = json_decode(file_get_contents('../../resources/employees.json'));
+    foreach($employees as $index => $employee){
+        if($employee->id == $id){
+            unset($employees[$index]);
+        break;
+        }
+    }
+    $employeesJSON = json_encode($employees);
+    file_put_contents('../../resources/employees.json',$employeesJSON);
+    return $employeesJSON;
 }
 
 
@@ -127,11 +155,11 @@ function printTable(){
 function printPagination($quantity){
     $quantity++;
     echo '<nav aria-label="table pages navigation"><ul id="pagination-items" class="pagination shadow"><li class="page-item">
-        <a class="page-link bg-light" href="#">Previous</a></li>';
+        <a id="previous" class="page-link bg-light" href="#" >Previous</a></li>';
     for($index = 1; $quantity > $index; $index++){
-        echo '<li class="page-item"><a class="page-link bg-light" href="#">' . $index . '</a></li>';
+        echo '<li class="page-item"><a class="page-link bg-light" href="#" data-number="'.$index.'">' . $index . '</a></li>';
     }
-    echo '<li class="page-item"><a class="page-link bg-light" href="#">Next</a></li></ul></nav>';
+    echo '<li id="next" class="page-item"><a class="page-link bg-light" href="#">Next</a></li></ul></nav>';
 }
 
 function removeAvatar($id)
