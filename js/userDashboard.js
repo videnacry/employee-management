@@ -2,7 +2,6 @@
     $('#jsGrid').jsGrid(
         {
             width:'100%',
-            filtering: true,
             inserting: true,
             editing: true,
             autoload: true,
@@ -10,12 +9,27 @@
             pagesize: 10,
             pageButtonCount: 5,
             deleteConfirm: 'Sure to erase that?',
+            noDataContent: 'Couldn\'t be found the information or just fill the table',
             controller:{
                 insertItem : function(data){
-                    return 
+                    data.query='addEmployee'
+                    return $.post("library/employeeController.php",data)
                 },
                 loadData : function(){
-                    return 
+                    let xhr
+                    $.ajax({
+                        async:false,
+                        url:'library/loginController.php',
+                        method:'POST',
+                        data:{
+                            query:'getUsers'
+                        },
+                        success:function(response,statusText,jqXHR){
+                            xhr = JSON.parse(response).users
+                        }
+                    })
+                    console.log(xhr)
+                    return xhr
                 },
                 deleteItem : function(data){
                     return 
@@ -26,6 +40,7 @@
                 { name:'name', title:'name', type:'text', width:100 },
                 //{ name:'lastName', title:'lastName', type:'text', width:100 },
                 { name:'email', title:'email', type:'text', width:200 },
+                { name:'password', title:'password', type:'text', width:300 },
                 /*{ name:'gender', title:'gender', type:'text', width:100 },
                 { name:'city', title:'city', type:'text', width:100 },
                 { name:'streetAddress', title:'streetAddress', type:'text', width:100 },

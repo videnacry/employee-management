@@ -8,6 +8,7 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="../node_modules/jsgrid/dist/jsgrid-theme.css">
     <link rel="stylesheet" href="../node_modules/jsgrid/dist/jsgrid.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../css/main.css"/>
 </head>
 

@@ -1,5 +1,26 @@
 <?php
 
+if(isset($_POST['query'])){
+    session_start();
+    if(isset($_SESSION['logged'])&&$_SESSION['logged']){
+        require 'loginManager.php';
+        switch($_POST['query']){
+            case 'getUsers':
+                echo getUsers();
+            break;
+            case 'updateUser':
+                updateUser($_POST['id']);
+            break;
+            case 'deleteUser':
+                deleteUser($_POST['id']);
+            break;
+            case 'addUser':
+                addUser($_POST['id']);
+            break;
+        }
+    }
+    die();
+}
 
 $admins = json_decode(file_get_contents('../../resources/users.json'));
 

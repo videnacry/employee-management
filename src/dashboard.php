@@ -11,6 +11,26 @@
 </head>
 
 <body>
+    <?php
+
+        include '../assets/header.html';
+
+        session_start();
+
+        if(isset($_POST['logout'])){
+            // unset($_SESSION['logged']);
+            // unset($_SESSION['userId']);
+            // unset($_SESSION['username']);
+            // unset($_SESSION['email']);
+            // unset($_SESSION['logTime']);
+            session_destroy();
+
+            $url = '../index.php';
+            header('Location: ' . $url);
+            die();
+        }
+
+    ?>
     <ul id="contextmenu" class="list-group list-group-flush contextmenu rounded">
         <a id="create-data" href="#" class="list-group-item list-group-item-light list-group-item-action border-bottom-0">
             <i class="fas fa-user-plus"></i><small>&nbsp;&nbsp;&nbsp;Create employee</small>
@@ -31,26 +51,6 @@
             <i class="fas fa-sign-out-alt"></i><small>&nbsp;&nbsp;&nbsp;Logout</small>
         </a>
     </ul>
-    <?php
-        session_start();
-
-        if(isset($_POST['logout'])){
-            // unset($_SESSION['logged']);
-            // unset($_SESSION['userId']);
-            // unset($_SESSION['username']);
-            // unset($_SESSION['email']);
-            // unset($_SESSION['logTime']);
-            session_destroy();
-
-            $url = '../index.php';
-            header('Location: ' . $url);
-            die();
-        }
-
-    ?>
-    <form action="dashboard.php" method="post">
-        <input type="submit" name="logout" value="Logout" />
-    </form>
     <div class="container">
 
         <?php if(isset($_SESSION['username'])){
@@ -68,6 +68,10 @@
         ?>
 
     </div>
+
+    <?php
+        include "../assets/footer.html";
+    ?>
 
     <script src="../node_modules/jquery/dist/jquery.js"></script>
     <script src="https://kit.fontawesome.com/de217cab6a.js" crossorigin="anonymous"></script>
