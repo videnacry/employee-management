@@ -30,27 +30,39 @@ function deleteEmployee(string $id)
 function updateEmployee($id, $nEmployee){
     // return (json_encode($nEmployee));
     $employees = json_decode(file_get_contents('../../resources/employees.json'));
+
+    $newEmployee = new stdClass();
+    $newEmployee->name = $nEmployee['name'];
+    $newEmployee->lastName = $nEmployee['lastName'];
+    $newEmployee->age = $nEmployee['age'];
+    $newEmployee->city = $nEmployee['city'];
+    $newEmployee->email = $nEmployee['email'];
+    $newEmployee->gender = $nEmployee['gender'];
+    $newEmployee->phoneNumber = $nEmployee['phoneNumber'];
+    $newEmployee->postalCode = $nEmployee['postalCode'];
+    $newEmployee->state = $nEmployee['state'];
+    $newEmployee->streetAddress = $nEmployee['streetAddress'];
+
     foreach ($employees as $key => $employee) {
         if($employee->id == $id){
-            $employee->name = $nEmployee['name'];
-            $employee->lastName = $nEmployee['surname'];
-            $employee->age = $nEmployee['age'];
-            $employee->city = $nEmployee['city'];
-            $employee->email = $nEmployee['email'];
-            $employee->gender = $nEmployee['gender'];
-            $employee->phoneNumber = $nEmployee['phone'];
-            $employee->postalCode = $nEmployee['po'];
-            $employee->state = $nEmployee['state'];
-            $employee->streetAddress = $nEmployee['address'];
-
-            $file = '../../resources/employees.json';
-            $fp = fopen($file, 'w');
-            fwrite($fp, json_encode($employees));
-            fclose($fp);
-
-            return json_encode($employee);
+            $newEmployee->id = $id;
+            $employees[$key] = $newEmployee;
+        }elseif(($key + 1 === count($employees)) && $id === 'new'){
+            $newEmployee->id = intval($employees[$key]->id) + 1;
+            array_push($employees, $newEmployee);
         }
     }
+
+    $file = '../../resources/employees.json';
+    $fp = fopen($file, 'w');
+    fwrite($fp, json_encode($employees));
+    fclose($fp);
+
+    if($id === 'new'){
+        return $newEmployee->id;
+    }else{
+        return 'modified';
+    };
 }
 
 
