@@ -21,6 +21,24 @@ function addEmployee(array $newEmployee)
     return $employeesJSON;
 }
 
+function addEmployees(array $newEmployees){
+    
+    $employeesObject = json_decode(file_get_contents('../../resources/employees.json'));
+    $count = count($employeesObject);
+    foreach($newEmployees as $newEmployee){
+        $employeeData = new stdClass();
+        $count++;
+        $employeeData->id = $count;
+        foreach($newEmployee as $index => $value){
+            $employeeData -> {$index} = $value;
+        }
+        array_push($employeesObject,$employeeData);        
+    }
+    $employeesJSON = json_encode($employeesObject);
+    file_put_contents('../../resources/employees.json', $employeesJSON);
+    return $employeesJSON;
+}
+
 function deleteEmployee(string $id)
 {
 // TODO implement it

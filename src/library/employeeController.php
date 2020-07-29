@@ -12,6 +12,9 @@ if(isset($_POST['query'])){
             unset($_POST['query']);
             echo addEmployee($_POST);
         break;
+        case 'addEmployees':
+            echo addEmployees($_POST['employees']);
+        break;
         case 'deleteEmployee':
             echo deleteEmployee($_POST['id']);
         break;

@@ -27,28 +27,34 @@ function cancelNew(){
 document.getElementById("save").addEventListener("click",selectChanges)
 function selectChanges(){
     const rows = rowsSection[0].children
-    for(let index in newRows){
-        saveEmployee(rowsSection[0].children[index].children, 'addEmployee')
-    }
-}
-function saveEmployee(employeeCells, query){
+    let newEmployees = []
     let employeeData = {}
-    employeeData['query'] = query
-    for(let index = 0; employeeCells.length > index+1; index++){
-        let employeeInput = employeeCells[index].children[0]
-        employeeData[employeeInput.dataset.column] = employeeInput.value
+    for(let index in newRows){
+        for(let i = 0; rows[index].children.length > i+1; i++){
+            let employeeInput = rows[index].children[i].children[0]
+            employeeData[employeeInput.dataset.column] = employeeInput.value
+        }
+        newEmployees.push(Object.assign({},employeeData))
     }
+    saveEmployee(newEmployees,'addEmployees')
+}
+function saveEmployee(employeesData, query){
+    let queryData = {}
+    queryData['query'] = query
+    queryData['employees'] = employeesData
     $.ajax({
         method:'POST',
         url:"library/employeeController.php",
-        data:employeeData,
+        data:queryData,
         success:function(response){
             employeesObject = JSON.parse(response)
+            reloadTable(Math.ceil(employeesObject.length/10))
         }
     })
 }
 
 //------------------------------------reload table---------------------------------------//
+document.getElementById('reload').onclick = reloadTable
 function reloadTable(page=0){
 
     let pageRows = employeesObject.slice(10*(page-1))
