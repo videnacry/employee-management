@@ -1,5 +1,6 @@
 <?php
 
+
 $admins = json_decode(file_get_contents('../../resources/users.json'));
 
 foreach ($admins->users as $key => $user) {

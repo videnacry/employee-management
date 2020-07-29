@@ -58,10 +58,11 @@ function saveEmployee(employeesData, query){
 //-----------------------------------delete employee-------------------------------------//
 deleteButtons()
 function deleteButtons(){
-    $('#employees-rows td .btn-block.btn.text-danger').click(deleteEmployee)
+    $('#employees-rows td .btn-block.btn.text-danger').click(function(){
+        deleteEmployee(event.currentTarget.dataset.id)
+    })
 }
-function deleteEmployee(id=false){
-    id = (id)?id:$(this).attr('data-id')
+function deleteEmployee(id){
     $.ajax({
         url:"library/employeeController.php?id="+id,
         method:"delete",
@@ -171,6 +172,11 @@ $('#create-data').click(function(){
 })
 $('#delete-data').click(function(){
     deleteEmployee(employeeId)
+})
+$('#logout').click(function(){
+    $.post("dashboard.php",{logout:'Logout'},function(){
+        location.href='../'
+    })
 })
 
 

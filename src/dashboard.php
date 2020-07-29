@@ -27,7 +27,7 @@
         <a href="#" onclick="reloadTable()" class="list-group-item list-group-item-light list-group-item-action border-bottom-0">
             <i class="fas fa-redo-alt"></i><small>&nbsp;&nbsp;&nbsp;Reload</small>
         </a>
-        <a href="#" class="list-group-item list-group-item-light list-group-item-action border-bottom-0">
+        <a id="logout" href="#" class="list-group-item list-group-item-light list-group-item-action border-bottom-0">
             <i class="fas fa-sign-out-alt"></i><small>&nbsp;&nbsp;&nbsp;Logout</small>
         </a>
     </ul>
