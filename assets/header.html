@@ -1,6 +1,11 @@
-<div class="header d-flex justify-content-between align-items-center px-3 py-2">
-    <img src="https://image.flaticon.com/icons/svg/3165/3165611.svg" alt="" height="40">
-    <form action="dashboard.php" method="post">
-        <input type="submit" name="logout" value="Logout" />
+<div class="header d-flex justify-content-between align-items-center py-2">
+    <div class="d-flex align-items-center">
+        <a href="dashboard.php"><img src="../resources/img/logo.png" alt="" height="40" class="ml-3"></a>
+        <span class="header__title ml-3 d-sm-flex align-items-center d-none">Employee management | <span class="header__link ml-2">
+            <a href="dashboard.php" id="dashboardTitle" class="activated">Dashboard</a> > <span id="employeeTitle" class="innactive">Employee</span></span>
+        </span>
+    </div>
+    <form action="dashboard.php" method="post" class="mr-4">
+        <input type="submit" name="logout" value="Logout" class="btn btn-outline-warning"/>
     </form>
 </div>

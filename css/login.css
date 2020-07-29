@@ -1,7 +1,10 @@
-form{
+/* form{
     display: flex;
     flex-direction: column;
     width: 200px;
+} */
+.main__container{
+    height: 100vh;
 }
 
 button{

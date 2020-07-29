@@ -11,6 +11,9 @@ const po = document.querySelector('#poInp');
 const phone = document.querySelector('#phoneInp');
 const alertMsg = document.querySelector('#formErrMsg');
 
+document.querySelector('#dashboardTitle').className = 'innactive';
+document.querySelector('#employeeTitle').className = 'activated';
+
 printEmployee(window.location.search);
 
 function printEmployee(param){
@@ -19,7 +22,6 @@ function printEmployee(param){
             method: 'GET',
             url: 'library/employeeController.php' + param,
         }).then(response=>{
-            // console.log(response.data);
             name.value = response.data.name;
             surname.value = response.data.lastName;
             email.value = response.data.email;
@@ -47,16 +49,15 @@ document.querySelector('#submitForm').addEventListener('click', e=>{
 
         let employee = new FormData(form);
         employee.name = name.value;
-        employee.surname = surname.value;
+        employee.lastName = surname.value;
         employee.email = email.value;
         employee.gender = gender.value;
         employee.city = city.value;
-        employee.phone = phone.value;
-        employee.po = po.value;
+        employee.phoneNumber = phone.value;
+        employee.postalCode = po.value;
         employee.state = state.value;
-        employee.address = address.value;
+        employee.streetAddress = address.value;
         employee.age = age.value;
-
         axios({
             method: 'post',
             url: 'library/employeeController.php' + window.location.search,
@@ -64,8 +65,9 @@ document.querySelector('#submitForm').addEventListener('click', e=>{
                 employee
             }
         }).then(response=>{
+            console.log(response.data)
             if(response.status === 200){
-                alertMsg.textContent = 'All changes applied! Redirecting to main page...'
+                alertMsg.textContent = ((response.data === 'modified') ? 'All changes applied! ' : `New employee created (id ${response.data}). `) + 'Redirecting to main page...';
                 alertMsg.classList.remove('alert-danger');
                 alertMsg.classList.add('alert-success');
                 alertMsg.classList.replace('d-none', 'd-flex');
@@ -75,7 +77,6 @@ document.querySelector('#submitForm').addEventListener('click', e=>{
                     alertMsg.classList.remove('alert-success');
                 }, 3000);
             }else{
-                console.log('Oops, error ' + response.status + '.')
                 alertMsg.textContent = 'Oops, error ' + response.status + '. Please, try again later.'
                 alertMsg.classList.add('alert-danger');
                 alertMsg.classList.replace('d-none', 'd-flex');
