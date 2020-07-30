@@ -1,0 +1,81 @@
+{
+	"info": {
+		"_postman_id": "1983e2b8-48dc-4368-a331-9e44d682d4e4",
+		"name": "employee-management-avatar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET 10 random profiles",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"value": "4B25747F-51664BE8-97A405EA-4437BFA2",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://uifaces.co/api",
+					"protocol": "https",
+					"host": [
+						"uifaces",
+						"co"
+					],
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  5 profiles of specific gender and age",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"value": "4B25747F-51664BE8-97A405EA-4437BFA2",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://uifaces.co/api?limit=5&to_age=29&from_age=29&gender[]=female",
+					"protocol": "https",
+					"host": [
+						"uifaces",
+						"co"
+					],
+					"path": [
+						"api"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "5"
+						},
+						{
+							"key": "to_age",
+							"value": "29"
+						},
+						{
+							"key": "from_age",
+							"value": "29"
+						},
+						{
+							"key": "gender[]",
+							"value": "female"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
