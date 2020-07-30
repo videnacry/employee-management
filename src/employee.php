@@ -19,7 +19,7 @@ header("Access-Control-Allow-Origin: *"); ?>
                 <span>Please, correct the highlighted errors.</span>
             </div>
             <div id="profilePicCont" class="profile__img d-flex justify-content-center align-items-center">
-                <img src="" alt="profile picture" id="profileImg" class="d-none">
+                <img src="https://image.flaticon.com/icons/svg/753/753345.svg" alt="profile picture" id="profileImg" class="d-none">
             </div>
             <div id="profilePicSelect" class="profile__img--selector d-none flex-wrap justify-content-sm-between justify-content-center mt-3">
             </div>

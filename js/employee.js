@@ -39,7 +39,7 @@ function printEmployee(param) {
             age.value = response.data.age;
 
             if (response.data.img) {
-                avatar.src = 'response.data.img';
+                avatar.src = response.data.img;
                 avatar.classList.remove('d-none')
             }
         });
@@ -68,6 +68,8 @@ document.querySelector('#submitForm').addEventListener('click', e => {
         employee.state = state.value;
         employee.streetAddress = address.value;
         employee.age = age.value;
+        employee.img = avatar.src;
+
         axios({
             method: 'post',
             url: 'library/employeeController.php' + window.location.search,
@@ -75,7 +77,6 @@ document.querySelector('#submitForm').addEventListener('click', e => {
                 employee
             }
         }).then(response => {
-            console.log(response.data)
             if (response.status === 200) {
                 alertMsg.textContent = ((response.data === 'modified') ? 'All changes applied! ' : `New employee created (id ${response.data}). `) + 'Redirecting to main page...';
                 alertMsg.classList.remove('alert-danger');
@@ -173,44 +174,63 @@ function checkInputs() {
     }
 }
 
-async function printProfilePics() {
-    /* <div class="profile__img d-flex justify-content-center align-items-center mx-2 mb-2">
-        <img src="" alt="profile picture" id="profileImg" class="d-none">
-    </div> */
-    let limit = (avatar.src === '') ? '4' : '5';
+function printProfilePics() {
+
+    let limit = (avatar.src !== 'https://image.flaticon.com/icons/svg/753/753345.svg') ? '4' : '5';
     let genderVal = (gender.value === 'man') ? 'male' : 'female';
 
     if (gender.value && age.value) {
+        let request = new FormData();
+        request.url = `https://uifaces.co/api?limit=${limit}&gender[]=${genderVal}&to_age=${age.value}&from_age=${age.value}`;
 
         axios({
-            method: 'get',
-            // url: `https://uifaces.co/api?limit=${limit}&gender[]=${genderVal}`,
-            url: `https://uifaces.co/api`,
-            headers:{
-                'X-API-KEY' : '4B25747F-51664BE8-97A405EA-4437BFA2',
-                'Accept': 'application/json',
-                'Cache-Control': 'no-cache',
+            method: 'POST',
+            url: 'imageGallery.php',
+            data:{
+                request
             },
         }).then(response=>{
-            // response.json();
-            console.log(response)
+            showPicOptions(response.data);
         })
-        // .then(data=>{
-        // })
-        // fetch('https://uifaces.co/api', {
-        //     method: 'GET',
-        //     mode: 'no-cors',
-        //     headers: {
-        //     'X-API-KEY': '4B25747F-51664BE8-97A405EA-4437BFA2',
-        //     // 'Accept': 'application/json',
-        //     // 'Cache-Control': 'no-cache'
-        //     },
-        // }).then(response=>{
-        //     console.log(response)
-        // })
+
     } else {
-        console.log('Please, define age and gender')
+        alertMsg.textContent = 'Please, define age and gender.'
+        alertMsg.classList.add('alert-danger');
+        alertMsg.classList.replace('d-none', 'd-flex');
+        setTimeout(() => {
+            alertMsg.classList.remove('alert-danger');
+            alertMsg.classList.replace('d-flex', 'd-none');
+        }, 3000);
     }
-    // avatarCont.classList.replace('d-flex', 'd-none');
-    // avatarSel.classList.replace('d-none', 'd-flex');
+}
+
+function showPicOptions(images){
+    avatarSel.innerHTML = '';
+
+    if(avatar.src !== 'https://image.flaticon.com/icons/svg/753/753345.svg'){
+        let div = document.createElement('div');
+        div.className = 'profile__img profile__img--prev d-flex justify-content-center align-items-center mx-2 mb-2';
+        div.innerHTML=`<img src="${avatar.src}" alt="profile picture" id="imgSel5" class="imgSelect imgSelect--prev">`;
+        avatarSel.append(div);
+    }
+    images.forEach((e, i)=> {
+        let div = document.createElement('div');
+        div.className = 'profile__img d-flex justify-content-center align-items-center mx-2 mb-2';
+        div.innerHTML=`<img src="${e}" alt="profile picture" id="imgSel${i}" class="imgSelect">`;
+        avatarSel.append(div);
+    });
+
+    $('.imgSelect').on('click', (e)=>{
+        chooseImg(e.target.src);
+    })
+
+    avatarCont.classList.replace('d-flex', 'd-none');
+    avatarSel.classList.replace('d-none', 'd-flex');
+}
+
+function chooseImg(src){
+    avatar.src = src;
+    avatar.classList.remove('d-none');
+    avatarSel.classList.replace('d-flex', 'd-none');
+    avatarCont.classList.replace('d-none', 'd-flex');
 }
