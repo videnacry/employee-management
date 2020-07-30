@@ -83,7 +83,8 @@ document.querySelector('#submitForm').addEventListener('click', e => {
                 alertMsg.classList.add('alert-success');
                 alertMsg.classList.replace('d-none', 'd-flex');
                 setTimeout(() => {
-                    window.location.href = '/src/dashboard.php'
+                    // console.log(window.location)
+                    window.location.href = window.location.origin + '/src/dashboard.php'
                     alertMsg.classList.replace('d-flex', 'd-none');
                     alertMsg.classList.remove('alert-success');
                 }, 3000);
