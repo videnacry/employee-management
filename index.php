@@ -35,7 +35,7 @@ if(isset($_SESSION['logged'])){
             </div>
             <div class="form-group">
                 <label for="pwd">Password</label>
-                <input type="text" name="pwd" id="pwd" placeholder='insert pwd' class="form-control">
+                <input type="password" name="pwd" id="pwd" placeholder='insert pwd' class="form-control">
                 <?php if(isset($_SESSION['wrong-pwd'])) echo '<p class="error">Wrong password</p>' ?>
             </div>
             <button type='submit' class="btn btn-outline-dark">Submit</button>
