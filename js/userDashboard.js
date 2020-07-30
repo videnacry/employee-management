@@ -41,10 +41,23 @@
                     return xhr
                 },
                 deleteItem : function(data){
-                    console.log(data)
                     $.post('library/loginController.php',{query:'deleteUser',id:data.userId},function(response){
                         
                     })
+                },
+                updateItem : function(data){
+                    let xhr
+                    data.query = 'updateUser'
+                    $.ajax({
+                        url:'library/loginController.php',
+                        async:false,
+                        method:'POST',
+                        data:data,
+                        success:function(response){
+                            xhr = JSON.parse(response)
+                        }
+                    })
+                    return xhr
                 }
             },
             fields:[

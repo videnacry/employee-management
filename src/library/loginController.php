@@ -9,7 +9,7 @@ if(isset($_POST['query'])){
                 echo getUsers();
             break;
             case 'updateUser':
-                echo updateUser($_POST['id']);
+                echo updateUser($_POST);
             break;
             case 'deleteUser':
                 echo deleteUser($_POST['id']);

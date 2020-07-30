@@ -16,16 +16,25 @@ function updateJson(string $filePath, object $data){
        return true;
     }
 }
+/**
+ * Create user object
+ * @param {array} $data -> object whose contains user data as properties 
+ */
+function createUser(array $data):object{
+    $newUser = new stdClass();
+    $newUser->userId =$data['userId'];
+    $newUser->name = $data['name'];
+    $newUser->email = $data['email'];
+    $newUser->password = $data['password'];
+    return $newUser;
+}
 function getUsers(){
     return file_get_contents('../../resources/users.json');
 }
 function addUser($data){
     $users = json_decode(file_get_contents('../../resources/users.json'));
-    $newUser = new stdClass();
-    $newUser->userId = (count($users->users)>0)? end($users->users)->userId+1 : 1;
-    $newUser->email = $data['email'];
-    $newUser->password = $data['password'];
-    $newUser->name = $data['name'];
+    $data['userId'] = (count($users->users)>0)? end($users->users)->userId+1 : 1;
+    $newUser = createUser($data);
     array_push($users->users, $newUser);
     if(updateJson('../../resources/users.json', $users)){
         return json_encode($newUser);
@@ -42,6 +51,20 @@ function deleteUser($id){
     }
     if(updateJson('../../resources/users.json', $users)){
         return json_encode($users);
+    }else{
+        return 'Couldn\'t get the database' ;
+    }
+}
+function updateUser($data){
+    $users = json_decode(file_get_contents('../../resources/users.json'));
+    $newData = createUser($data);
+    foreach($users->users as $index => $user){
+        if($user->userId == $newData->userId){
+            $users->users[$index] = $newData;
+        }
+    }
+    if(updateJson('../../resources/users.json', $users)){
+        return json_encode($newData);
     }else{
         return 'Couldn\'t get the database' ;
     }
