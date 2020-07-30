@@ -192,12 +192,14 @@ async function printProfilePics() {
                 'Cache-Control': 'no-cache',
             },
         }).then(response=>{
-            response.json();
-        }).then(data=>{
-            console.log(data)
+            // response.json();
+            console.log(response)
         })
+        // .then(data=>{
+        // })
         // fetch('https://uifaces.co/api', {
         //     method: 'GET',
+        //     mode: 'no-cors',
         //     headers: {
         //     'X-API-KEY': '4B25747F-51664BE8-97A405EA-4437BFA2',
         //     // 'Accept': 'application/json',
