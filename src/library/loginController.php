@@ -9,13 +9,13 @@ if(isset($_POST['query'])){
                 echo getUsers();
             break;
             case 'updateUser':
-                updateUser($_POST['id']);
+                echo updateUser($_POST['id']);
             break;
             case 'deleteUser':
-                deleteUser($_POST['id']);
+                echo deleteUser($_POST['id']);
             break;
             case 'addUser':
-                addUser($_POST['id']);
+                echo addUser($_POST);
             break;
         }
     }

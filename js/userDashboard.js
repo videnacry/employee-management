@@ -12,8 +12,18 @@
             noDataContent: 'Couldn\'t be found the information or just fill the table',
             controller:{
                 insertItem : function(data){
-                    data.query='addEmployee'
-                    return $.post("library/employeeController.php",data)
+                    data.query='addUser'
+                    let xhr
+                    $.ajax({
+                        async:false,
+                        url:'library/loginController.php',
+                        method:'POST',
+                        data:data,
+                        success:function(response,statusText,jqXHR){
+                            xhr = JSON.parse(response).users
+                        }
+                    })
+                    return xhr
                 },
                 loadData : function(){
                     let xhr
@@ -28,7 +38,6 @@
                             xhr = JSON.parse(response).users
                         }
                     })
-                    console.log(xhr)
                     return xhr
                 },
                 deleteItem : function(data){
