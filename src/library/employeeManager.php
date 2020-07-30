@@ -32,7 +32,7 @@ function addEmployees(array $newEmployees){
         foreach($newEmployee as $index => $value){
             $employeeData -> {$index} = $value;
         }
-        array_push($employeesObject,$employeeData);        
+        array_push($employeesObject,$employeeData);
     }
     $employeesJSON = json_encode($employeesObject);
     file_put_contents('../../resources/employees.json', $employeesJSON);
@@ -57,6 +57,7 @@ function deleteEmployee(string $id)
 
 function updateEmployee($id, $nEmployee){
     // return (json_encode($nEmployee));
+    //API KEY -> 4B25747F-51664BE8-97A405EA-4437BFA2
     $employees = json_decode(file_get_contents('../../resources/employees.json'));
 
     $newEmployee = new stdClass();
@@ -70,10 +71,11 @@ function updateEmployee($id, $nEmployee){
     $newEmployee->postalCode = $nEmployee['postalCode'];
     $newEmployee->state = $nEmployee['state'];
     $newEmployee->streetAddress = $nEmployee['streetAddress'];
+    $newEmployee->img = $nEmployee['img'];
 
     foreach ($employees as $key => $employee) {
         if($employee->id == $id){
-            $newEmployee->id = $id;
+            $newEmployee->id = intval($id);
             $employees[$key] = $newEmployee;
         }elseif(($key + 1 === count($employees)) && $id === 'new'){
             $newEmployee->id = intval($employees[$key]->id) + 1;

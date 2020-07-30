@@ -80,3 +80,32 @@ form#employeeForm{
 .form-error{
     border-color: red;
 }
+
+.profile__img{
+    height: 150px;
+    width: 120px;
+    border-radius: 7px;
+    transition: 0.3s ease;
+    background-image: url('../resources/img/usuario.svg');
+    overflow: hidden;
+}
+
+.profile__img img{
+    height: 150px;
+    width: 120px;
+    object-fit: cover;
+}
+
+.profile__img:hover{
+    cursor: pointer;
+    transform: scale(1.03);
+}
+
+.profile__img--selector{
+    width: 50%;
+    min-width: 225px;
+}
+
+.profile__img--prev{
+    border: 3px solid rgb(250, 200, 0);
+}
