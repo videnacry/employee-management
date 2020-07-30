@@ -50,7 +50,8 @@ function printEmployee(param) {
 
 document.querySelector('#returnBtn').addEventListener('click', e => {
     e.preventDefault();
-    window.location.href = window.location.origin + '/src/dashboard.php';
+    let newUrl = window.location.href.replace(/employee\.php.+/g, 'dashboard.php')
+    window.location.href = newUrl;
 });
 document.querySelector('#submitForm').addEventListener('click', e => {
     e.preventDefault();
@@ -83,8 +84,8 @@ document.querySelector('#submitForm').addEventListener('click', e => {
                 alertMsg.classList.add('alert-success');
                 alertMsg.classList.replace('d-none', 'd-flex');
                 setTimeout(() => {
-                    // console.log(window.location)
-                    window.location.href = window.location.origin + '/src/dashboard.php'
+                    let newUrl = window.location.href.replace(/employee\.php.+/g, 'dashboard.php')
+                    window.location.href = newUrl;
                     alertMsg.classList.replace('d-flex', 'd-none');
                     alertMsg.classList.remove('alert-success');
                 }, 3000);
