@@ -50,7 +50,7 @@ function printEmployee(param) {
 
 document.querySelector('#returnBtn').addEventListener('click', e => {
     e.preventDefault();
-    window.location.href = '/src/dashboard.php';
+    window.location.href = window.location.origin + '/src/dashboard.php';
 });
 document.querySelector('#submitForm').addEventListener('click', e => {
     e.preventDefault();
