@@ -41,7 +41,10 @@
                     return xhr
                 },
                 deleteItem : function(data){
-                    return 
+                    console.log(data)
+                    $.post('library/loginController.php',{query:'deleteUser',id:data.userId},function(response){
+                        
+                    })
                 }
             },
             fields:[
