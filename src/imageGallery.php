@@ -1,1 +1,17 @@
-<!-- TODO If you are going to add the extra feature implement here the image selection as a gallery or whatever you like -->
+<?php
+
+include('library/avatarsApi.php');
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+    $tmp = json_decode(file_get_contents("php://input"), true);
+
+    $results = CallAPI($tmp['request']['url']);
+
+    $images = array();
+    foreach ($results as $key => $value) {
+        array_push($images, $value->photo);
+    }
+    echo json_encode($images);
+    die();
+}

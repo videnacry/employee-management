@@ -13,9 +13,17 @@
 </head>
 
 <body>
-    <div id="jsGrid">
+    
+    <?php 
+        include('../assets/header.html') ;
+        include('library/sessionHelper.php');
+    ?>
+    <div class="container">
+        <div id="jsGrid">
 
+        </div>
     </div>
+    <?php include('../assets/footer.html') ?>
 
     <script src="../node_modules/jquery/dist/jquery.js"></script>
     <script src="https://kit.fontawesome.com/de217cab6a.js" crossorigin="anonymous"></script>

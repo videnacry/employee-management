@@ -35,6 +35,7 @@
                             query:'getUsers'
                         },
                         success:function(response,statusText,jqXHR){
+                            console.log(response)
                             xhr = JSON.parse(response).users
                         }
                     })
