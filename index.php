@@ -22,6 +22,7 @@ if(isset($_SESSION['logged'])){
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="css/login.css">
     <link rel="shortcut icon" href="../resources/img/logo.png">
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
     <title>Login</title>
 </head>
 <body>
@@ -41,7 +42,6 @@ if(isset($_SESSION['logged'])){
             <button type='submit' class="btn btn-outline-dark">Submit</button>
         </form>
     </div>
-    <script src="../node_modules/jquery/dist/jquery.js"></script>
     <script src="https://kit.fontawesome.com/de217cab6a.js" crossorigin="anonymous"></script>
     <script src="../node_modules/bootstrap/js/dist/index.js" defer></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
